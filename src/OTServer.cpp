@@ -5835,7 +5835,7 @@ void OTServer::NotarizeBailment(OTPseudonym& theNym, OTAccount& theAccount,
                     bOutSuccess = true; // The bailment (deposit request) was
                                         // successfully processed into an
                                         // initiateBailment receipt
-                    OTLog::Output(1, "OTServer::NotarizeBailment:"
+                    OTLog::vOutput(1, "OTServer::NotarizeBailment:"
                         ".....SUCCESS -- deposit request processed into"
                         "initiateBailment receipt.\nPlease wait for"
                         " pendingBailment containing a BIP70 payment"
@@ -5856,7 +5856,7 @@ void OTServer::NotarizeBailment(OTPseudonym& theNym, OTAccount& theAccount,
 
     pResponseBalanceItem->SignContract(m_nymServer);
     pResponseBalanceItem->SaveContract();
-
+    
 }
 
 /// NotarizePayDividend
