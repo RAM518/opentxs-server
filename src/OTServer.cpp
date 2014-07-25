@@ -5796,6 +5796,11 @@ void OTServer::NotarizeBailment(OTPseudonym& theNym, OTAccount& theAccount,
                                             lNewTransactionNumber);
                     //todo put these two together in a method.
                     pInboxTransaction->SetReferenceString(strInReferenceTo);
+                    
+                    OTLog::vOutput(1, "OTServer::NotarizeBailment:"
+                                      " setting reference number for initiated"
+                                      "Bailment transaction: " +
+                                      pItem->GetTransactionNum());
                     pInboxTransaction->SetReferenceToNum(
                                                 pItem->GetTransactionNum());
                     pInboxTransaction->SetNumberOfOrigin(*pItem);
@@ -15967,6 +15972,18 @@ void OTServer::NotarizeProcessInbox(OTPseudonym& theNym, OTAccount& theAccount,
                                     pOriginalItem->GetReferenceToNum());
                             }
                         }
+                        else if (OTItem::bailment ==
+                                 pOriginalItem->GetType()) // (which is in
+                                                           // reference to the
+                                                           // client's outoing
+                                                           // original
+                                                           // transfer.)
+                        {                            
+                                OTLog::vError(
+                                    "%s: bailment receipt caught\n",
+                                    __FUNCTION__,
+                                    pOriginalItem->GetReferenceToNum());                                                    
+                        }                        
                         else {
                             OTString strOriginalItemType;
                             pOriginalItem->GetTypeString(strOriginalItemType);
