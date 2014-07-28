@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<html>
+    <head>
+        <title>Opentxs-Server Admin Panel ~ Monetas</title>
+        <meta charset="UTF-8">
 <!--
 /************************************************************
  -----BEGIN PGP SIGNED MESSAGE-----
@@ -127,12 +131,10 @@
  **************************************************************/
 
 -->
-<html>
-    <head>
-        <title>Open Transactions Web Interfaces Homepage</title>
-        <meta charset="UTF-8">
+
         <meta name="viewport" content="width=device-width">
         <link rel=stylesheet type="text/css" href="OT_WebUI.css">
+        <!-- <script type="text/javascript" src="js/slider.js"></script> -->
         <!-- <script src="LiveNetworkGraph_OT.js"></script> -->
 
         <script language="javascript">
@@ -142,15 +144,11 @@
                 var y = document.getElementById("KeyValue");
                 x.innerHTML = y.value;
             }
-
         </script>
 
 
     </head>
     <body>
-
-
-
         <nav>
             <ul style="width:800px">
                 <ln style="Float: Left; clear: both;"><img height=156px src="images/opentransactions.png"></ln>
@@ -229,12 +227,72 @@
                     <ul style="width:250px; margin: 2px 0px; padding: 0px 0px;">
                         <li>
                             <font style="font-size: 14px; color: #E5F2FE;"><b>Tx Server Network Graph</b></font><br /></font>
-                            <img src="./images/mesh.png" height="250px">
+                            <img src="./images/mesh.png" height="115px">
                         </li>
                     </ul>
                 </td></tr></table>
-            <nest>
-        </main>
+            <nest>                              
+        </main><br />
+        <center>
+        <decoder>
+            <table style="cellspacing:0px; cellpading:0px; valign: center; width:780px;">
+                    <tr><td align="left" width="100%">
+                            <span class="decoder_container">
+                                <span id="left_decoder" class="decoder_panel_left">Left</span><span id="decoder_pane"></span><span id="decoder_panemover"
+                                     onmousedown="dragStart(event); return false;"
+                                     onmousemove="drag(event);"
+                                     onmouseout="dragRelease();"
+                                     onmouseup="dragRelease();"></span><span id="right_decoder" class="decoder_panel_right">Right</span>
+                            </span>                                                                                
+                        </td>                                              
+                    </tr>                                            
+            </table>
+                    
+        </decoder>                       
+        </center>
+        <script>
+    var mouseDown = false;
 
+function dragStart(e) {
+
+    document.getElementById('decoder_panemover').style.width = '100%';
+    document.getElementById('decoder_panemover').style.left = '0px';
+
+    mouseDown = true;
+    x = e.clientX
+   
+    dragOffsetLeft = document.getElementById('left_decoder').offsetWidth - x;
+    dragOffsetRight = document.getElementById('right_decoder').offsetWidth + x;
+};
+
+function dragRelease() {
+
+    if (!mouseDown) {
+        return
+    }           
+    document.getElementById('decoder_panemover').style.width = '5px';
+    document.getElementById('decoder_panemover').style.left = document.getElementById('decoder_pane').offsetLeft + 3 + 'px';
+    mouseDown = false;
+};
+
+function drag(e) { 
+
+    if (!mouseDown) {
+        return
+    }   
+    x = e.clientX
+    tmpLeft = dragOffsetLeft + x
+    tmpRight = dragOffsetRight - x
+    if (tmpLeft < 30 || tmpRight < 30) {
+        return
+    }
+    document.getElementById('left_decoder').style.width = tmpLeft + 'px';
+    document.getElementById('right_decoder').style.width = tmpRight + 'px';
+};            
+            
+            
+        </script>        
+        
+        
     </body>
 </html>
