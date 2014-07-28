@@ -1,9 +1,11 @@
 #menutree li {
    list-style: none;          /* all list item li dots invisible */
-         }
+    text-wrap: none;
+text-overflow: clip;    
+    }
 
    li .menu_label + input[type=checkbox] {
-      opacity: 0;             /* checkboxes invisible and use no space */
+      opacity: 0;             /* checkboxes invisible and use no space */   
      }                        /* display: none; is better but fails in ie8 */
 
     li .menu_label {
@@ -16,7 +18,9 @@
          }
 
       li .menu_label + input[type=checkbox]:checked + ol > li
-         {
-           display: block;         /* display submenu on click */           
+         {           
+            line-height: 14px;
+            display: block;
+            x-overflow: hidden;            
          }
 

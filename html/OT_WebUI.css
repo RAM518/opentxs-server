@@ -274,12 +274,18 @@ decoder
         margin-bottom: 0px;
         z-index: 1;       
         top: -300px;
+        x-overflow: hidden;
+        white-space: no-wrap;
+        text-wrap: none;
+        text-overflow: clip;
 }
 
 .decoder_container {
-    display : inline-block;
-    height : 200px;
+    display : inline;
     width : 774px;
+    x-overflow: hidden;
+    text-wrap: none;
+    text-overflow: clip;    
 }
 
 #decoder_pane {
@@ -306,10 +312,11 @@ decoder
     border-bottom-left-radius: 10px;    
     display : inline-block;
     width : 240px;
-    height : auto;
-    overflow-x: hidden;
-    align: left;
+    height: 100%;
     background-color : #707070;
+    x-overflow: hidden;
+    text-wrap: none;
+    text-overflow: clip;    
 }
 
 .decoder_panel_right {
@@ -318,8 +325,7 @@ decoder
     display : inline-block;
     width : 528px;
     height: 100%;
-    overflow-x: hidden;
-    height : auto;    
+    z-index: 2;
     background-color : #707070;
 }
 
