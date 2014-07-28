@@ -13,4 +13,8 @@ You can also serve to the WEB, by simply calling
 python -m SimpleHTTPServer 8080
 to serve on port 8080 for example.
 
+(dependency)
+cd js/
+wget http://code.jquery.com/jquery-2.1.0.min.js
+
 

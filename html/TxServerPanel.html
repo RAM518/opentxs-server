@@ -135,6 +135,8 @@
         <meta name="viewport" content="width=device-width">
         <link rel=stylesheet type="text/css" href="OT_WebUI.css">
         <script style="text/javascript" src="js/slider.js"></script>
+        <link href="dir_menu.css" rel="stylesheet" type="text/css" />        
+        <script src="js/jquery-2.1.0.min.js"></script>        
         <!-- <script src="LiveNetworkGraph_OT.js"></script> -->
 
         <script language="javascript">
@@ -223,8 +225,8 @@
                                 </div>
                         </li>
                     </ul>
-                </td><td style="width:250px;">
-                    <ul style="width:250px; margin: 2px 0px; padding: 0px 0px;">
+                </td><td style="width:278px;">
+                    <ul style="width:278px; margin: 2px 0px; padding: 0px 0px;">
                         <li>
                             <font style="font-size: 14px; color: #E5F2FE;"><b>Tx Server Network Graph</b></font><br /></font>
                             <img src="./images/mesh.png" height="115px">
@@ -239,13 +241,20 @@
                     <tr><td align="left" width="100%">
                             <span class="decoder_container">
                                 <span id="left_decoder" class="decoder_panel_left">
-                                    <table style="cellspacing:2px; cellpading:2px; width:100%"><tr><td>
-                                        <center><font style="text-align: center; align:center;"><b><u>File Menu</u></b></font></center>
-                                                
-                                        </td><tr/>
-                                        <tr><td>
-                                                
-                                    </td></tr></table>
+
+                                    <script>
+                  var infoPanel = document.getElementById("left_decoder");
+                  var frameNum, dir_menu = "cgi/dir_menu.py";
+                  $.ajax({url: dir_menu,
+                      success: function(data){
+                        infoPanel.innerHTML = data;
+                        resetHeight();                       
+                        //console.log("data: " + data);
+                      }
+                  }); 
+                                            
+                                    </script>    
+
                                     
                                 </span><span id="decoder_pane"></span><span id="decoder_panemover"
                                      onmousedown="dragStart(event); return false;"

@@ -46,4 +46,15 @@ function drag(e) {
     }
     document.getElementById('left_decoder').style.width = tmpLeft + 'px';
     document.getElementById('right_decoder').style.width = tmpRight + 'px';
+    
+    // this prevents the left-side panel from sliding down if if gets shorter
+    resetHeight();
 };            
+
+function resetHeight() {
+    // this prevents the left-side panel from sliding down if if gets shorter
+    document.getElementById('decoder_panemover').style.height = infoPanel.offsetHeight + 'px';
+    document.getElementById('right_decoder').style.height = infoPanel.offsetHeight  + 'px';
+    document.getElementById('decoder_pane').style.height = infoPanel.offsetHeight  + 'px';
+    document.getElementById('left_decoder').scrollLeft = '0px';
+}
