@@ -1,0 +1,261 @@
+html {
+        height: 100%;
+}
+
+body {
+        margin: 0;
+        padding: 0;
+        background: #DCEDFD center center no-repeat;
+        color: #ffffff;
+        font-family: sans-serif;
+        font-size: 13px;
+        line-height: 20px;
+        height: 100%;
+}
+
+OTimg {
+        position: relative;    
+	margin: 0px 0px;
+        display: inline-table;        
+}
+
+nav {
+	margin: 20px auto; 
+	text-align: center;
+        width: 800px;
+        z-index: 10;
+}
+
+nav ul ul {
+	display: none;
+        z-index: 10;        
+}
+
+nav ul li:hover > ul {
+	display: block;
+        z-index: 10;        
+}
+
+nav ul {
+	background: linear-gradient(top, #DBFFFF 0%, #8EABDA 100%);  
+	background: -moz-linear-gradient(top, #DBFFFF 0%, #8EABDA 100%); 
+	background: -webkit-linear-gradient(top, #DBFFFF 0%, #8EABDA 100%); 
+	box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
+	padding: 0px 0px;
+	border-radius: 10px;  
+	list-style: none;
+	position: relative;
+	display: inline-table;
+        border: 0px;
+        z-index: 10;        
+//        width: 800px;      
+}
+
+nav ul ln {
+    position: relative;
+    top: -48px;
+    left: -25px;
+    height: 1px; // CSS trick to float the OT banner image
+    width: 0px;
+    z-index: 10;    
+    
+}
+
+nav ul:after {
+	content: ""; clear: both; display: block;
+        z-index: 10;        
+}
+
+nav ul li {
+	float: left;
+        border-radius: 10px;        
+        z-index: 10;
+}
+
+nav ul li:hover {
+	background: linear-gradient(top, #4f5964 0%, #5f6975 40%);
+	background: -moz-linear-gradient(top, #4f5964 0%, #5f6975 40%);
+	background: -webkit-linear-gradient(top, #4f5964 0%,#5f6975 40%);
+        border-radius: 10px;        
+        z-index: 10;
+}
+
+nav ul li:hover a {
+//	color: #fff;
+        z-index: 10;
+}
+		
+nav ul li a {
+	display: block; padding: 25px 30px;
+	color: #0C2354; text-decoration: none;
+        z-index: 10;
+}
+
+nav ul la {
+	float: left;
+        border-radius: 10px;        
+        z-index: 10;
+}
+
+nav ul la:hover {
+	background: linear-gradient(top, #DBFFFF 0%, #8EABDA 100%);  
+	background: -moz-linear-gradient(top, #DBFFFF 0%, #8EABDA 100%); 
+	background: -webkit-linear-gradient(top, #DBFFFF 0%, #8EABDA 100%);
+        border-radius: 10px;        
+        z-index: 10;
+}
+
+nav ul la:hover a {
+	color:#163FA1;
+        z-index: 10;
+}
+		
+nav ul la a {
+	display: block; padding: 25px 30px;
+	color:#163FA1; text-decoration: none;
+        z-index: 10;
+}
+
+
+			
+nav ul ul {
+        background: #5f6975; border-radius: 10px; padding: 0;
+	position: absolute; top: 100%;
+        z-index: 10;
+}
+
+nav ul ul li {
+	float: none; 
+	border-top: 1px solid #6b727c;
+	bottom: 1px solid #575f6a; position: relative;
+        border-radius: 10px;        
+        z-index: 10;
+}
+
+nav ul ul li a {
+	padding: 7px 40px;
+	color: #fff;
+        z-index: 10;
+}
+
+nav ul ul li a:hover {
+	background: #4b545f;
+        border-radius: 10px;        
+        z-index: 10;
+}
+
+nav ul ul ls {
+	float: none; 
+	border-top: 1px solid #6b727c;
+	bottom: 1px solid #575f6a; position: relative;
+        border-radius: 10px;
+	text-color:#163FA1;        
+        z-index: 10;
+}
+
+nav ul ul ls a {
+	padding: 7px 40px;
+	color:#163FA1;
+        z-index: 10;
+}
+
+nav ul ul ls a:hover {
+	color:#163FA1;
+        border-radius: 10px;        
+        z-index: 10;
+}
+		
+nav ul ul ul {
+	position: absolute; left: 100%; top:0;
+        border-radius: 10px;        
+        z-index: 10;
+}     
+
+main {
+	text-align: center;
+        width: 800px;
+        height: 500px;
+	background: #DBFFFF; 
+	box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
+	padding: 0px 0px;
+	border-radius: 10px;  
+	list-style: none;
+        z-index: 1;        
+}
+
+nest {
+//        margin: 35px auto; 
+	text-align: center;
+        width: 780px;
+        z-index: 1;
+        align: left;
+}
+
+nest ul {
+	background: #DBFFFF; 
+	background: linear-gradient(top, #8EABDA 0%, #648BCC 100%);  
+	background: -moz-linear-gradient(top, #8EABDA 0%, #648BCC 100%); 
+	background: -webkit-linear-gradient(top, #8EABDA 0%, #648BCC 100%); 
+	padding: 3px 8px;
+	border-radius: 10px;  
+	list-style: none;
+	position: relative;
+	display: inline-table;
+        border: 0px;
+        margin-top: 5px;
+        margin-bottom: 0px;
+        z-index: 1;        
+//        width: 800px;        
+}
+
+h1 {
+    color: #E5F2FE;  
+}
+
+h2 {
+    color: #E5F2FE;    
+}
+
+h3 {
+    color: #E5F2FE; 
+}
+
+h4 {
+    color: #E5F2FE; 
+}
+
+select {
+    border-radius: 5px;
+    background: #DBFFFF;
+    color: #163FA1;    
+}
+
+select option {
+    border-radius: 5px;
+    background: #DBFFFF;
+    color: #163FA1;    
+}
+
+.file-input-wrapper {
+//    width: 200px;
+//    height: 40px;
+    overflow: hidden;
+    position: relative;
+}
+
+.file-input-wrapper > input[type="file"] {
+//    font-size: 200px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0;
+}
+
+.file-input-wrapper > .btn-file-input {
+    display: inline-block;
+//    width: 200px;
+//    height: 40px;
+}
+
+
+

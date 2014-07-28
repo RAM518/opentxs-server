@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<!--
+/************************************************************
+ -----BEGIN PGP SIGNED MESSAGE-----
+ Hash: SHA1
+
+ *                 OPEN TRANSACTIONS
+ *
+ *       Financial Cryptography and Digital Cash
+ *       Library, Protocol, API, Server, CLI, GUI
+ *
+ *       -- Anonymous Numbered Accounts.
+ *       -- Untraceable Digital Cash.
+ *       -- Triple-Signed Receipts.
+ *       -- Cheques, Vouchers, Transfers, Inboxes.
+ *       -- Basket Currencies, Markets, Payment Plans.
+ *       -- Signed, XML, Ricardian-style Contracts.
+ *       -- Scripted smart contracts.
+ *
+ *  Copyright (C) 2010-2013 by "Fellow Traveler" (A pseudonym)
+ *
+ *  EMAIL:
+ *  FellowTraveler@rayservers.net
+ *
+ *  BITCOIN:  1NtTPVVjDsUfDWybS4BwvHpG2pdS9RnYyQ
+ *
+ *  KEY FINGERPRINT (PGP Key in license file):
+ *  9DD5 90EB 9292 4B48 0484  7910 0308 00ED F951 BB8E
+ *
+ *  OFFICIAL PROJECT WIKI(s):
+ *  https://github.com/FellowTraveler/Moneychanger
+ *  https://github.com/FellowTraveler/Open-Transactions/wiki
+ *
+ *  WEBSITE:
+ *  http://www.OpenTransactions.org/
+ *
+ *  Components and licensing:
+ *   -- Moneychanger..A Java client GUI.....LICENSE:.....GPLv3
+ *   -- otlib.........A class library.......LICENSE:...LAGPLv3
+ *   -- otapi.........A client API..........LICENSE:...LAGPLv3
+ *   -- opentxs/ot....Command-line client...LICENSE:...LAGPLv3
+ *   -- otserver......Server Application....LICENSE:....AGPLv3
+ *  Github.com/FellowTraveler/Open-Transactions/wiki/Components
+ *
+ *  All of the above OT components were designed and written by
+ *  Fellow Traveler, with the exception of Moneychanger, which
+ *  was contracted out to Vicky C (bitcointrader4@gmail.com).
+ *  The open-source community has since actively contributed.
+ *
+ *  -----------------------------------------------------
+ *
+ *   LICENSE:
+ *   This program is free software: you can redistribute it
+ *   and/or modify it under the terms of the GNU Affero
+ *   General Public License as published by the Free Software
+ *   Foundation, either version 3 of the License, or (at your
+ *   option) any later version.
+ *
+ *   ADDITIONAL PERMISSION under the GNU Affero GPL version 3
+ *   section 7: (This paragraph applies only to the LAGPLv3
+ *   components listed above.) If you modify this Program, or
+ *   any covered work, by linking or combining it with other
+ *   code, such other code is not for that reason alone subject
+ *   to any of the requirements of the GNU Affero GPL version 3.
+ *   (==> This means if you are only using the OT API, then you
+ *   don't have to open-source your code--only your changes to
+ *   Open-Transactions itself must be open source. Similar to
+ *   LGPLv3, except it applies to software-as-a-service, not
+ *   just to distributing binaries.)
+ *
+ *   Extra WAIVER for OpenSSL, Lucre, and all other libraries
+ *   used by Open Transactions: This program is released under
+ *   the AGPL with the additional exemption that compiling,
+ *   linking, and/or using OpenSSL is allowed. The same is true
+ *   for any other open source libraries included in this
+ *   project: complete waiver from the AGPL is hereby granted to
+ *   compile, link, and/or use them with Open-Transactions,
+ *   according to their own terms, as long as the rest of the
+ *   Open-Transactions terms remain respected, with regard to
+ *   the Open-Transactions code itself.
+ *
+ *   Lucre License:
+ *   This code is also "dual-license", meaning that Ben Lau-
+ *   rie's license must also be included and respected, since
+ *   the code for Lucre is also included with Open Transactions.
+ *   See Open-Transactions/src/otlib/lucre/LUCRE_LICENSE.txt
+ *   The Laurie requirements are light, but if there is any
+ *   problem with his license, simply remove the Lucre code.
+ *   Although there are no other blind token algorithms in Open
+ *   Transactions (yet. credlib is coming), the other functions
+ *   will continue to operate.
+ *   See Lucre on Github:  https://github.com/benlaurie/lucre
+ *   -----------------------------------------------------
+ *   You should have received a copy of the GNU Affero General
+ *   Public License along with this program.  If not, see:
+ *   http://www.gnu.org/licenses/
+ *
+ *   If you would like to use this software outside of the free
+ *   software license, please contact FellowTraveler.
+ *   (Unfortunately many will run anonymously and untraceably,
+ *   so who could really stop them?)
+ *
+ *   DISCLAIMER:
+ *   This program is distributed in the hope that it will be
+ *   useful, but WITHOUT ANY WARRANTY; without even the implied
+ *   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ *   PURPOSE.  See the GNU Affero General Public License for
+ *   more details.
+
+ -----BEGIN PGP SIGNATURE-----
+ Version: GnuPG v1.4.9 (Darwin)
+
+ iQIcBAEBAgAGBQJRSsfJAAoJEAMIAO35UbuOQT8P/RJbka8etf7wbxdHQNAY+2cC
+ vDf8J3X8VI+pwMqv6wgTVy17venMZJa4I4ikXD/MRyWV1XbTG0mBXk/7AZk7Rexk
+ KTvL/U1kWiez6+8XXLye+k2JNM6v7eej8xMrqEcO0ZArh/DsLoIn1y8p8qjBI7+m
+ aE7lhstDiD0z8mwRRLKFLN2IH5rAFaZZUvj5ERJaoYUKdn4c+RcQVei2YOl4T0FU
+ LWND3YLoH8naqJXkaOKEN4UfJINCwxhe5Ke9wyfLWLUO7NamRkWD2T7CJ0xocnD1
+ sjAzlVGNgaFDRflfIF4QhBx1Ddl6wwhJfw+d08bjqblSq8aXDkmFA7HeunSFKkdn
+ oIEOEgyj+veuOMRJC5pnBJ9vV+7qRdDKQWaCKotynt4sWJDGQ9kWGWm74SsNaduN
+ TPMyr9kNmGsfR69Q2Zq/FLcLX/j8ESxU+HYUB4vaARw2xEOu2xwDDv6jt0j3Vqsg
+ x7rWv4S/Eh18FDNDkVRChiNoOIilLYLL6c38uMf1pnItBuxP3uhgY6COm59kVaRh
+ nyGTYCDYD2TK+fI9o89F1297uDCwEJ62U0Q7iTDp5QuXCoxkPfv8/kX6lS6T3y9G
+ M9mqIoLbIQ1EDntFv7/t6fUTS2+46uCrdZWbQ5RjYXdrzjij02nDmJAm2BngnZvd
+ kamH0Y/n11lCvo1oQxM+
+ =uSzz
+ -----END PGP SIGNATURE-----
+ **************************************************************/
+
+-->
+<html>
+    <head>
+        <title>Open Transactions Web Interfaces Homepage</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <link rel=stylesheet type="text/css" href="OT_WebUI.css">
+        <!-- <script src="LiveNetworkGraph_OT.js"></script> -->
+
+        <script language="javascript">
+
+            function keyUpdate(){ // a little javascript helper for the keyfile selector button styling
+                var x = document.getElementById("KeyName");
+                var y = document.getElementById("KeyValue");
+                x.innerHTML = y.value;
+            }
+
+        </script>
+
+
+    </head>
+    <body>
+
+
+
+        <nav>
+            <ul style="width:800px">
+                <ln style="Float: Left; clear: both;"><img height=156px src="images/opentransactions.png"></ln>
+		<li><a href="./index.html">Home</a></li>
+		<li><a href="#">Network</a>
+			<ul>
+				<li><a href="#">Live Network Graphs</a></li>
+				<ls><a>Transaction Server Panel</a></ls>
+				<li><a href="AuditServerPanel.html">Audit Server Panel</a></li>
+			</ul>
+		</li>
+		<li><a href="#">Web Client</a>
+			<ul>
+				<li><a href="#">Digital Currency</a>
+					<ul>
+						<li><a href="#">Chaumian Assets & Stocks</a></li>
+						<li><a href="#">Blockchain Currencies</a></li>
+					</ul>
+                                </li>
+				<li><a href="#">Smart Contracts</a></li>
+				<li><a href="#">Merchant Integration</a></li>
+			</ul>
+		</li>
+		<li><a href="#">Web Trader</a>
+                	<ul>
+				<li><a href="#">Currencies / Commodities</a></li>
+				<li><a href="#">Options / Futures</a></li>
+				<li><a href="#">Direct MarketPlace</a></li>
+			</ul>
+                </li>
+            </ul>
+        </nav>
+        <main style="margin: -32px auto;">
+            <nest>
+                <ul style="width:780px; margin-top: 15px;">
+                    <li><h1>OT <u>Transaction Server</u> Web Panel</h1></li>
+                </ul>
+                <table border=0px><tr valign=top><td style="width:250px;">
+                    <ul style="width:250px; margin: 2px 0px; padding: 0px 0px; text-align: left;">
+                        <li>
+                            <font style="font-size: 14px; color: #E5F2FE;">&nbsp;&nbsp;<b>Transaction Server List</b></font><br />
+                                <div style="width: 100%; margin: 0px auto; text-align: center;">
+                                    <select>
+                                        <option value="127.0.0.1">127.0.0.1</option>
+                                        <option value="example_ip_addr">Monetas Cloud Server</option>
+                                        <option value="example_ip_addr">Example Tx Server Name</option>
+                                        <option value="example_ip_addr">Example Tx Server IP</option>
+                                    </select>
+                                </div>
+                                <div style="width: 100%; margin: 5px auto; text-align: left;">
+                                    <div class="file-input-wrapper">
+                                        <button class="btn-file-input" onClick="keyShow();">Select Keyfile</button><input type="file" id="KeyValue" onchange="javascript:keyUpdate();">
+                                        <br /><font style="font-size: 13px; color: #163FA1;"><b>&nbsp;<span id="KeyName"> select file <span></b></font>
+                                    </div>
+                                </div>
+                                <div style="width: 100%; margin: 0px auto; text-align: center;">
+                                    <button type="button" onclick="alert('Hello world!')">Secure Log-In</button>
+                                </div>
+                        </li>
+                    </ul>
+                 </td><td style="width:250px;">
+                    <ul style="width:250px; margin: 2px 0px; padding: 0px 0px;">
+                        <li>
+                            <font style="font-size: 14px; color: #E5F2FE;"><b>Tx Server Info & Stats</b></font><br /></font>
+                                <div style="width: 100%; margin: 0px auto; text-align: left;">
+                                    &nbsp;&nbsp;&nbsp; - IP Address: <font style="font-size: 13px; color: #163FA1;"><span id="TxIPAddr">127.0.0.1</span></font><br />
+                                    &nbsp;&nbsp;&nbsp; - Server Name: <font style="font-size: 13px; color: #163FA1;"><span id="TxServerName">localhost</span></font><br />
+                                    &nbsp;&nbsp;&nbsp; - Git Code Version: <font style="font-size: 13px; color: #163FA1;"><span id="TxGitVersion">0.92c</span></font><br />
+                                    &nbsp;&nbsp;&nbsp; - Total Registered Nyms: <font style="font-size: 13px; color: #163FA1;"><span id="TxRegisteredNyms">216</span></font><br />
+                                    &nbsp;&nbsp;&nbsp; - Total Asset Contracts: <font style="font-size: 13px; color: #163FA1;"><span id="TxAssetContracts">26</span></font><br />
+                                    &nbsp;&nbsp;&nbsp; - TX Server Contract: <font style="font-size: 13px; color: #163FA1;"><span id="TxServerContractID">(id or test)</span></font><br />
+                                </div>
+                        </li>
+                    </ul>
+                </td><td style="width:250px;">
+                    <ul style="width:250px; margin: 2px 0px; padding: 0px 0px;">
+                        <li>
+                            <font style="font-size: 14px; color: #E5F2FE;"><b>Tx Server Network Graph</b></font><br /></font>
+                            <img src="./images/mesh.png" height="250px">
+                        </li>
+                    </ul>
+                </td></tr></table>
+            <nest>
+        </main>
+
+    </body>
+</html>
