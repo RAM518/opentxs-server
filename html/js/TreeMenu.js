@@ -134,7 +134,7 @@ TreeMenu.ClassClose = 'close';			// class name added to <LI> tag's class
 TreeMenu.ClassOpen  = 'open';			// class name added to <LI> tag's class
 TreeMenu.ClassLast  = 'last';			// added to last <LI> and symbol tags' classes
 
-TreeMenu.CookieSaveStates = true;		// flag to use a cookie to save menu state
+TreeMenu.CookieSaveStates = false;		// flag to use a cookie to save menu state
 TreeMenu.CookieExpire = 90;			// days before cookie saving menu states expires
 
 TreeMenu.SetupMenu = true;			// scan document objects to initialize menu
@@ -193,8 +193,8 @@ TreeMenu.toggle = function(e) {
 		if (m.Singular) m.hide_menus_except(li);
 		m.show_menu(ul,li,e);
 	}
-
-	m.save_menu_states();
+        resetHeight(); // customization to control html panel height RAM
+	m.save_menu_states();        
 }
 
 TreeMenu.show = function(ul) {
@@ -449,4 +449,12 @@ function getCookie(name) {
 	var end = document.cookie.indexOf(";", begin);
 	if (end == -1) end = dc.length;
 	return unescape(dc.substring(begin + prefix.length, end));
+}
+
+function resetHeight() {
+    // this prevents the left-side panel from sliding down if if gets shorter
+    document.getElementById('decoder_panemover').style.height = infoPanel.offsetHeight + 'px';
+    document.getElementById('right_decoder').style.height = infoPanel.offsetHeight  + 'px';
+    document.getElementById('decoder_pane').style.height = infoPanel.offsetHeight  + 'px';
+    document.getElementById('left_decoder').scrollLeft = '0px';    
 }

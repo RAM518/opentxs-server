@@ -56,12 +56,13 @@
 .menu .symbol-close
 	{
 	float:left;
-	width:34px;
+	width:22px;
 	height:16px;
 	background-position:left center;
 	background-repeat:no-repeat;
+        text-align: left;
 	}
-.menu .symbol-close { background-image:url(images/folder-horizontal-closed.png); }
+.menu .symbol-close { background-image:url(images/folder-horizontal.png); }
 .menu .symbol-open  { background-image:url(images/folder-horizontal-open.png); }
 .menu .symbol-item.last  { }
 .menu .symbol-close.last { }

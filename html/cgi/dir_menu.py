@@ -30,8 +30,8 @@ for root, dir, files in os.walk(startFolder, topdown=True):
   if lastLevel < level:
     c = 1;
   print "  <li class='close'>",
-  print "     <span class='symbol-close' onclick='TreeMenu.toggle(this)'></span>",
-  # this takes out the prepended full path of the firectory names
+  print "     <span class='symbol-close' onclick='TreeMenu.toggle(this);'></span>",
+  # this takes out the prepended full path of the directory names
   path = root.split('/')
   # this piece appends the filenames for readability
   dirname = os.path.basename(root).split('.')
