@@ -36,6 +36,8 @@
 .menu .symbol-zip,
 .menu .symbol-html,
 .menu .symbol-file,
+.menu .symbol-clock,
+.menu .symbol-key,
 .menu .symbol-item
 	{
 	float:left;
@@ -51,6 +53,8 @@
 .menu .symbol-zip   { background-image:url(images/zip.png); }
 .menu .symbol-html  { background-image:url(images/html.png); }
 .menu .symbol-file  { background-image:url(images/file.png); }
+.menu .symbol-clock  { background-image:url(images/clock.png); }
+.menu .symbol-key  { background-image:url(images/key.png); }
 .menu .symbol-item  { background-image:url(images/page.png); }
 .menu .symbol-open,
 .menu .symbol-close

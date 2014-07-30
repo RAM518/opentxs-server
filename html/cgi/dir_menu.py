@@ -50,14 +50,28 @@ for root, dir, files in os.walk(startFolder, topdown=True):
   for items in files:    
     fileEnd += 1;
     filename = items.split('.')
-    print "      <li><span class='symbol-png'></span>"
     # this piece appends the filenames for readability       
     if len(filename)==2:
+      if filename[1] == 'rct':
+        print "      <li><span class='symbol-item'></span>"
+      elif filename[1] == 'success':
+        print "      <li><span class='symbol-item'></span>"
+      elif filename[1] == 'xml':
+        print "      <li><span class='symbol-html'></span>"
+      elif filename[1] == 'PUBLIC':
+        print "      <li><span class='symbol-key'></span>"
+      elif filename[1] == 'cred':
+        print "      <li><span class='symbol-key'></span>"
+      elif filename[1] == 'crn':
+        print "      <li><span class='symbol-clock'></span>"
+      else:
+        print "      <li><span class='symbol-txt'></span>"
       if len(filename[0])>17:
         print "         ",filename[0][:15] + "...." + filename[1]
       else:
         print "         ",filename[0] + "." + filename[1]           
     else:
+      print "      <li><span class='symbol-txt'></span>"
       if len(filename[0])>17:
         print "         "+filename[0][:15] + "..."
       else:
