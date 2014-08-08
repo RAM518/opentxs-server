@@ -6,19 +6,31 @@ print ""
 
 # this sets up the directory menu tree within the dir_menus.css template
 
-print "<table style='cellspacing:2px; cellpading:2px; width:100%'><tr><td>"
+print "<table style='cellspacing:2px; cellpadding:2px; width:100%'><tr><td>"
 print "  <b><u>File Menu</u></b><br />"
 print "  <div class='menu'>"
 print "    <ul id='folder_list'>"
 c = 0;
+r = 0;
 lastLevel = 0;
 level = 0;
-startFolder = '/home/locutus/.ot/server_data';
+
+# here we need to look for the ~/.ot folder
+from subprocess import Popen, PIPE
+cmd = "cd ~; pwd"
+p = Popen(cmd , shell=True, stdout=PIPE, stderr=PIPE)
+out, err = p.communicate()
+if p.returncode:
+  print "Couldn't get dir listing for ~/.ot folder"
+homePath = out.rstrip()
+
+startFolder = homePath + '/.ot/server_data';
 for root, dir, files in os.walk(startFolder, topdown=True):
   dir.sort()
   files.sort()
   #print len(root), " ", len(dir), " ", len(files)
   c += 1;
+  r += 1;
   level = root.replace(startFolder,'').count(os.sep)
   # these three conditionals close up the xml behind the loop properly
   if lastLevel == level:
@@ -30,7 +42,10 @@ for root, dir, files in os.walk(startFolder, topdown=True):
   if lastLevel < level:
     c = 1;
   print "  <li class='close'>",
-  print "     <span class='symbol-close' onclick='TreeMenu.toggle(this);'></span>",
+  if r==1:
+    print "     <span class='symbol-close' id=treeRoot onClick='TreeMenu.toggle(this);'></span>",
+  else:
+    print "     <span class='symbol-close' onclick='TreeMenu.toggle(this);'></span>",
   # this takes out the prepended full path of the directory names
   path = root.split('/')
   # this piece appends the filenames for readability
@@ -50,6 +65,7 @@ for root, dir, files in os.walk(startFolder, topdown=True):
   for items in files:    
     fileEnd += 1;
     filename = items.split('.')
+    fullFileName = root + "/" + items;
     # this piece appends the filenames for readability       
     if len(filename)==2:
       if filename[1] == 'rct':
@@ -65,22 +81,27 @@ for root, dir, files in os.walk(startFolder, topdown=True):
       elif filename[1] == 'crn':
         print "      <li><span class='symbol-clock'></span>"
       else:
-        print "      <li><span class='symbol-txt'></span>"
+        print "      <li><span class='symbol-txt'></span>"    
+    # here we print out hyperlinks and set_rightPanel(path,type) constructors  
       if len(filename[0])>17:
-        print "         ",filename[0][:15] + "...." + filename[1]
+        print "         "+"<a href='javascript:set_rightPanel(\"" + fullFileName + "\",\"" + filename[1] + "\");'>"
+        print "         "+filename[0][:15] + "..." + filename[1] + "</a>"
       else:
-        print "         ",filename[0] + "." + filename[1]           
+        print "         "+"<a href='javascript:set_rightPanel(\"" + fullFileName + "\",\"" + filename[1] + "\");'>"
+        print "         "+filename[0] + "." + filename[1] + "</a>"          
     else:
       print "      <li><span class='symbol-txt'></span>"
       if len(filename[0])>17:
-        print "         "+filename[0][:15] + "..."
+        print "         "+"<a href='javascript:set_rightPanel(\"" + fullFileName + "\",\"none\");'>"
+        print "         "+filename[0][:15] + "..." + "</a>"
       else:
-        print "         ",filename[0]
+        print "         "+"<a href='javascript:set_rightPanel(\"" + fullFileName + "\",\"none\");'>"
+        print "         "+filename[0] + "</a>"
     print "      </li>"
     # another conditional needed here to close up the xml properly
     if fileEnd == len(files):
       if c == len(dir):
          print '</ul>'
   lastLevel = level;
-print "  </ul>"
+print "  </ul></div>"
 print "</td></tr></table>"

@@ -49,11 +49,50 @@ function drag(e) {
     // this prevents the left-side panel from sliding down if if gets shorter
     resetHeight();
 };            
-
+/*
 function resetHeight() {
     // this prevents the left-side panel from sliding down if if gets shorter
-    document.getElementById('decoder_panemover').style.height = infoPanel.offsetHeight + 'px';
-    document.getElementById('right_decoder').style.height = infoPanel.offsetHeight  + 'px';
-    document.getElementById('decoder_pane').style.height = infoPanel.offsetHeight  + 'px';
+    console.log('resetting height:');
+    var infoPanel = document.getElementById("left_decoder");
+    var textPanel = document.getElementById("right_decoder");
+    var rightTable = document.getElementById("rightTable")
+    thisHeight1 = Math.max(infoPanel.offsetHeight, textPanel.offsetHeight);
+    thisHeight = Math.max(thisHeight1,rightTable.offsetHeight);
+    document.getElementById('decoder_panemover').style.height = thisHeight + 'px';
+    document.getElementById('right_decoder').style.height = thisHeight  + 'px';
+    document.getElementById('decoder_pane').style.height = thisHeight  + 'px';
     document.getElementById('left_decoder').scrollLeft = '0px';    
+}
+*/
+function set_leftPanel() {
+   var infoPanel = document.getElementById("menuContents");
+   var dir_menu = "cgi/dir_menu.py";
+   $.ajax({url: dir_menu,
+      success: function(data){
+         infoPanel.innerHTML = data;
+         var treeRoot = document.getElementById('treeRoot');
+         TreeMenu.toggle(treeRoot);
+         resetHeight();                       
+         //console.log("data: " + data);
+      }
+   });
+}
+
+function set_rightPanel(fileTarget,fileType){
+   var textPanel = document.getElementById("decodedContents");
+   textPanel.innerHTML = "<center><font color=#A4F1A6>Decoding" +
+     fileTarget + "</font><br /><font color=#E2E3E8>Please Wait...</font>" + 
+     "</center>"; 
+   $.ajax({
+      url: "cgi/fileParser.py",
+      type    : 'POST',
+      data    : {'target':fileTarget,'type':fileType},
+      dataType: 'text',
+      success: function(response){
+         textPanel.innerHTML = response;         
+         resetHeight();                       
+         console.log(response);
+      }
+   });    
+    
 }

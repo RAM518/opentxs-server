@@ -452,9 +452,57 @@ function getCookie(name) {
 }
 
 function resetHeight() {
-    // this prevents the left-side panel from sliding down if if gets shorter
-    document.getElementById('decoder_panemover').style.height = infoPanel.offsetHeight + 'px';
-    document.getElementById('right_decoder').style.height = infoPanel.offsetHeight  + 'px';
-    document.getElementById('decoder_pane').style.height = infoPanel.offsetHeight  + 'px';
-    document.getElementById('left_decoder').scrollLeft = '0px';    
+    var infoPanel = document.getElementById("menuContents");
+    var rightTable = document.getElementById("decodedContents");
+    thisHeight0 = infoPanel.offsetHeight;
+    thisHeight = Math.max(infoPanel.offsetHeight,rightTable.offsetHeight);
+//    console.log('resetting height: ' + thisHeight);
+    document.getElementById('decoder_panemover').style.height = thisHeight + 'px';
+    document.getElementById('right_decoder').style.height = thisHeight  + 'px';
+    document.getElementById('decoder_pane').style.height = thisHeight  + 'px';
+    document.getElementById('left_decoder').style.height = thisHeight  + 'px';    
+    document.getElementById('left_decoder').scrollLeft = '0px';   
+}
+
+/*
+ * Scripts to set file folder icons.
+ *
+ * These are supplemental functions assisting TreeMenu. They are needed only
+ * because the symbol tags were not added by TreeMenu.
+ *
+ * The set_class_all() function supports TreeMenu.show_all() and TreeMenu.hide_all()
+ * functions by setting the className attribute on all the symbol tags added each
+ * line.
+ *
+ * The restore_class_all() function searches the tree menu for all the symbol tags
+ * added to the list and sets their className attributes appropriately. This function
+ * is needed to ensure the symbols are set properly when the user refreshes their
+ * browser or returns to a page with their back button.
+ *
+ */
+
+function set_class_all(e,symboltagname,oldclassname,newclassname) {
+	// Support function to alter all the open-folder/closed-folder symbols.
+	e = TreeMenu.get_ref(e);
+	tags = e.getElementsByTagName(symboltagname.toUpperCase());
+	for (var i = 0; i < tags.length; i++) {
+		if (tags[i].className == oldclassname) tags[i].className = newclassname;
+	}
+}
+
+function restore_class_all(e,symboltagname,closeclassname,openclassname) {
+	// Set symbols' className to correspond to the menu state.
+	e = TreeMenu.get_ref(e);
+	var m = TreeMenu.menus[TreeMenu.get_top_ul(e).id];
+	var states = m.get_menu_states();
+
+	tags = e.getElementsByTagName(symboltagname.toUpperCase());
+	menu_index = 0;
+	for (var i = 0; i < tags.length; i++) {
+		if (tags[i].className == closeclassname || tags[i].className == openclassname) {
+			if (states[menu_index] == '1')	tags[i].className = openclassname;
+			else				tags[i].className = closeclassname;
+			menu_index++;
+		}
+	}
 }
