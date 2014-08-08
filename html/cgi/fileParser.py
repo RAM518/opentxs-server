@@ -50,16 +50,16 @@ def displayXML(root):
     print '<table class="decoded"><tr><td>'
     print "<li class='top' value='"+node.tag+"'>"
     print '<center><b><font style="color:#A4F1A6;">'+node.tag+'</font></b></center>'
-    if node.tag == 'inReferenceTo' or node.tag == 'publicCredential':
+    if ( node.tag == 'inReferenceTo' or node.tag == 'publicCredential' ) :
       if node.text: 
-        subText = decodeThis(node.text,1) # 1 here is for decoding normal xml
+        subText = decodeThis(node.text,1) # 1 here is for decoding encoded xml
         subRoot = ET.fromstring(subText)
         displayXML(subRoot)
       else:
         print "inReferenceTo data was empty!<br />"
     elif ( node.tag == 'item' or node.tag == 'attachment' or 
        node.tag == 'credentialList' or node.tag == 'masterPublic' or
-       node.tag == 'masterSigned'): 
+       node.tag == 'masterSigned' ): 
       if node.text: 
         if len(node.attrib.items()):
           print node.text          
@@ -78,8 +78,9 @@ def displayXML(root):
           print subText     
       else:
         print "inReferenceTo data was empty!<br />"
-    elif node.tag == 'publicInfo' or node.tag == 'privateInfo':
-      # special case for publicInfo and privateInfo xml objects holding key
+    elif ( node.tag == 'publicInfo' or node.tag == 'privateInfo' or
+           node.tag == 'mintPublicInfo' or node.tag == 'note' ) :
+      # special case for publicInfo and privateInfo xml objects with raw data
       if node.text: 
         subText = decodeThis(node.text,2) # 2 here is for decoding pgp pubkeys
         print subText     
@@ -88,7 +89,9 @@ def displayXML(root):
     elif node.tag == 'publicContents' or node.tag == 'privateContents':
       # special case for publicContents / privateContents xml objects
       continue
-    elif node.tag == 'credentials': # credentials field doesn't get decoded
+    elif ( node.tag == 'credentials' or node.tag == 'mintPublicKey' or
+           node.tag == 'mintPrivateInfo' or 'tokenID' ):
+      # special case fields that don't get decoded
       if node.text: 
         print node.text
     for name, value in sorted(node.attrib.items()):
