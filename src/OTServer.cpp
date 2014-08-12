@@ -5797,14 +5797,17 @@ void OTServer::NotarizeBailment(OTPseudonym& theNym, OTAccount& theAccount,
                     //todo put these two together in a method.
                     pInboxTransaction->SetReferenceString(strInReferenceTo);
                     
-                    OTLog::vOutput(1, "OTServer::NotarizeBailment:"
+                    OTLog::vOutput(0, "OTServer::NotarizeBailment:"
                                       " setting reference number for initiated"
                                       "Bailment transaction: " +
                                       pItem->GetTransactionNum());
+                    OTLog::vOutput(0, " , numberOfOrigin: " +
+                                      pItem->GetNumberOfOrigin());
+                                        
                     pInboxTransaction->SetReferenceToNum(
                                                 pItem->GetTransactionNum());
                     pInboxTransaction->SetNumberOfOrigin(*pItem);
-
+;
                     // Now we have created a new transaction from the server to
                     // the users' inbox
                     // Let's sign and add it to their inbox
@@ -5840,11 +5843,11 @@ void OTServer::NotarizeBailment(OTPseudonym& theNym, OTAccount& theAccount,
                     bOutSuccess = true; // The bailment (deposit request) was
                                         // successfully processed into an
                                         // initiateBailment receipt
-                    OTLog::vOutput(1, "OTServer::NotarizeBailment:"
+                    OTLog::vOutput(0, "OTServer::NotarizeBailment:"
                         ".....SUCCESS -- deposit request processed into"
-                        "initiateBailment receipt.\nPlease wait for"
+                        " initiateBailment receipt.\nPlease wait for"
                         " pendingBailment containing a BIP70 payment"
-                        "request.\n");
+                        " request.\n");
 
                 } // end balance agreement case
             } // end inbox success loading case
