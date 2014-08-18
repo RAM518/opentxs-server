@@ -64,12 +64,16 @@ function resetHeight() {
     document.getElementById('left_decoder').scrollLeft = '0px';    
 }
 */
-function set_leftPanel() {
+function set_leftPanel(pathTarget) {
    var infoPanel = document.getElementById("menuContents");
    var dir_menu = "cgi/dir_menu.py";
-   $.ajax({url: dir_menu,
-      success: function(data){
-         infoPanel.innerHTML = data;
+   $.ajax({
+      url: dir_menu,
+      type: 'POST',
+      data: {'target':pathTarget},
+      dataType: 'text',
+      success: function(response){
+         infoPanel.innerHTML = response;
          var treeRoot = document.getElementById('treeRoot');
          TreeMenu.toggle(treeRoot);
          resetHeight();                       

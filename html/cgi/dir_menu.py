@@ -2,11 +2,36 @@
 
 import os
 import fnmatch
+import cgi
+import sys
+print "Content-Type: text/html"
 print ""
+
+
+fs = cgi.FieldStorage()
+
+d = {}
+for k in fs.keys():
+  d[k] = fs.getvalue(k)
+try: 
+  fileTarget = d["target"]
+except:
+  #print "Unexpected error:", sys.exc_info()[0]
+  print ""
+  #raise
+
+thisTarget = ''
+if fileTarget == 'server_data':
+  thisTarget = 'server_data'
+elif fileTarget == 'client_data':
+  thisTarget = 'client_data'
+# the above conditional prevents ajax requests for other directory readings
 
 # this sets up the directory menu tree within the dir_menus.css template
 
-print "<table style='cellspacing:2px; cellpadding:2px; width:100%'><tr><td>"
+print "<table border=1px style='cellspacing:2px; cellpadding:2px; width:100%'><tr><td>"
+print "  <font style='float:left'><b><a href=\"javascript: set_leftPanel('server_data')\">server_data</a></b></font>"
+print "  <font style='float:right'><b><a href=\"javascript: set_leftPanel('client_data')\">client_data</a></b></font></td></tr><tr><td>"
 print "  <b><u>File Menu</u></b><br />"
 print "  <div class='menu'>"
 print "    <ul id='folder_list'>"
@@ -24,7 +49,7 @@ if p.returncode:
   print "Couldn't get dir listing for ~/.ot folder"
 homePath = out.rstrip()
 
-startFolder = homePath + '/.ot/server_data';
+startFolder = homePath + '/.ot/' + fileTarget;
 for root, dir, files in os.walk(startFolder, topdown=True):
   dir.sort()
   files.sort()
