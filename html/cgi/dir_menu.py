@@ -29,7 +29,7 @@ elif fileTarget == 'client_data':
 
 # this sets up the directory menu tree within the dir_menus.css template
 
-print "<table border=1px style='cellspacing:2px; cellpadding:2px; width:100%'><tr><td>"
+print "<table style='cellspacing:2px; cellpadding:2px; width:100%'><tr><td>"
 print "  <font style='float:left'><b><a href=\"javascript: set_leftPanel('server_data')\">server_data</a></b></font>"
 print "  <font style='float:right'><b><a href=\"javascript: set_leftPanel('client_data')\">client_data</a></b></font></td></tr><tr><td>"
 print "  <b><u>File Menu</u></b><br />"
