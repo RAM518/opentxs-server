@@ -85,6 +85,7 @@ for root, dir, files in os.walk(startFolder, topdown=True):
       print dirname[0][:15] + '...',
     else:
       print dirname[0],
+#  print level , ', ' , lastLevel , ', ' , c , '(' , len(dir) , ')'
   print "    <ul style='display:none;'>"
   fileEnd = 0;
   for items in files:    
@@ -122,11 +123,12 @@ for root, dir, files in os.walk(startFolder, topdown=True):
       else:
         print "         "+"<a href='javascript:set_rightPanel(\"" + fullFileName + "\",\"none\");'>"
         print "         "+filename[0] + "</a>"
+#    print level , ', ' , lastLevel , ', ' , c , ', ' , fileEnd , '(' , len(files) , ')'
     print "      </li>"
     # another conditional needed here to close up the xml properly
-    if fileEnd == len(files):
-      if c == len(dir):
-         print '</ul>'
+    #if fileEnd == len(files):
+     # if c == len(dir):
+      #   print 'hello </ul>'
   lastLevel = level;
 print "  </ul></div>"
 print "</td></tr></table>"

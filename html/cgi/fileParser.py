@@ -15,8 +15,11 @@ import time
 import re
 from subprocess import Popen, PIPE
 import xml.etree.ElementTree as ET
+import codecs
+from xml.etree.ElementTree import XMLParser
 import cgitb
 cgitb.enable()
+parser = XMLParser(encoding="utf-8")
 
 # Path to Opentxs client 
 #pathToOpentxs = "/usr/bin/"      #DEFAULT
@@ -53,19 +56,24 @@ def displayXML(root):
     if ( node.tag == 'inReferenceTo' or node.tag == 'publicCredential' ) :
       if node.text: 
         subText = decodeThis(node.text,1) # 1 here is for decoding encoded xml
-        subRoot = ET.fromstring(subText)
+        subText1 = re.sub(r'@','at',subText); 
+          # this sanitizes the @ symbol out of the xml class headers
+        subRoot = ET.fromstring(subText1)
         displayXML(subRoot)
       else:
         print "inReferenceTo data was empty!<br />"
     elif ( node.tag == 'item' or node.tag == 'attachment' or 
        node.tag == 'credentialList' or node.tag == 'masterPublic' or
-       node.tag == 'masterSigned' ): 
+       node.tag == 'masterSigned' or node.tag == 'accountLedger' or
+       node.tag == 'responseLedger' or node.tag == 'transaction' ): 
       if node.text: 
         if len(node.attrib.items()):
           print node.text          
         else:
           subText = decodeThis(node.text,1) # 1 here is for decoding xml strings
-          subRoot = ET.fromstring(subText)
+          subText1 = re.sub(r'@','at',subText); 
+             # this sanitizes the @ symbol out of the xml class headers
+          subRoot = ET.fromstring(subText1)
           displayXML(subRoot)
       else:
         print "inReferenceTo data was empty!<br />"
@@ -79,7 +87,9 @@ def displayXML(root):
       else:
         print "inReferenceTo data was empty!<br />"
     elif ( node.tag == 'publicInfo' or node.tag == 'privateInfo' or
-           node.tag == 'mintPublicInfo' or node.tag == 'note' ) :
+           node.tag == 'mintPublicInfo' or node.tag == 'note' or 
+           node.tag == 'transactionNums' or node.tag == 'issuedNums' or
+           node.tag == 'ackReplies' ) :
       # special case for publicInfo and privateInfo xml objects with raw data
       if node.text: 
         subText = decodeThis(node.text,2) # 2 here is for decoding pgp pubkeys
